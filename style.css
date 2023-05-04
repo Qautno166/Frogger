@@ -1,0 +1,58 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 200px;
+  margin-left: 50px;
+  border: 2px solid black;
+  height: 270px;
+  width: 270px;
+
+  /* grid-template-columns: repeat(9, 30px);
+  grid-template-rows: repeat(9, 30px);
+  grid-auto-rows: 270px;
+  grid-auto-flow: dense; */
+}
+.grid div {
+  height: 30px;
+  width: 30px;
+  border: 0px solid black;
+}
+.winer {
+  background-color: rgb(255, 2, 179);
+}
+.user {
+  background-color: blue;
+}
+.log-left,
+.log-right {
+  background-color: lightblue;
+}
+.car-left,
+.car-right {
+  background-color: lightgray;
+}
+.frog {
+  background-color: green;
+}
+/* .car {
+  background-color: black;
+} */
+.l1,
+.l2,
+.l3 {
+  background-color: brown;
+}
+.l4 .l5 {
+  background-color: lightblue;
+}
+.r1,
+.r2,
+.r3 {
+  background-color: brown;
+}
+.r4 .r5 {
+  background-color: lightblue;
+}
+.c1 {
+  background-color: black;
+}

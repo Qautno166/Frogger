@@ -31,9 +31,7 @@
 .car-right {
   background-color: lightgray;
 }
-.frog {
-  background-color: green;
-}
+
 /* .car {
   background-color: black;
 } */
@@ -50,9 +48,13 @@
 .r3 {
   background-color: brown;
 }
-.r4 .r5 {
-  background-color: lightblue;
+
+.frog {
+  background-color: green;
 }
 .c1 {
   background-color: black;
+}
+.r4 .r5 {
+  background-color: lightblue;
 }

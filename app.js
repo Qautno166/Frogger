@@ -10,41 +10,68 @@ const carLeft = document.querySelectorAll(".car-left");
 const carRight = document.querySelectorAll(".car-right");
 const width = 9;
 const hight = 9;
+let timeLeft = 60;
 let currentIndex = 76;
 // let currentCarRightIndex = 52;
 // let currentCarLeftIndex = 54;
-//Movement of user
 
-window.addEventListener("keydown", (e) => {
+//STOP START GAME
+let gameRunning = true;
+
+function startGame() {
+  // Code to start the game
+  gameRunning = true;
+}
+function stopGame1() {
+  // Code to stop the game
+  gameRunning = false;
+  console.log("kupa");
+  clearInterval(timer);
+
+  clearInterval(timer);
+}
+
+function toggleGame() {
+  if (gameRunning) {
+    stopGame1();
+  } else {
+    startGame();
+  }
+}
+
+//Movement of user
+stopGame();
+function moveUser(e) {
   switch (e.key) {
     case "ArrowUp":
       console.log(currentIndex);
       squares[currentIndex].classList.remove("frog");
       if (currentIndex >= 9) currentIndex -= 9;
       squares[currentIndex].classList.add("frog");
-  }
-  switch (e.key) {
+      break;
+
     case "ArrowDown":
       console.log(currentIndex);
       squares[currentIndex].classList.remove("frog");
       if (currentIndex < 63) currentIndex += 9;
       squares[currentIndex].classList.add("frog");
-  }
-  switch (e.key) {
+      break;
+
     case "ArrowLeft":
       squares[currentIndex].classList.remove("frog");
       if (currentIndex % width !== 0) currentIndex -= 1;
       squares[currentIndex].classList.add("frog");
-  }
-  switch (e.key) {
+      break;
+
     case "ArrowRight":
       squares[currentIndex].classList.remove("frog");
-
       if ((currentIndex + 1) % width !== 0) currentIndex += 1;
-
       squares[currentIndex].classList.add("frog");
+      break;
   }
-});
+}
+document.addEventListener("keydown", moveUser);
+
 //Creating Cat
 
 //Moving of car --- Wrog code - there is no option to make more than 1 car per row
@@ -72,10 +99,14 @@ console.log(logLeft);
 //Moving Log Left ( )
 
 function autoMoveLog() {
+  button.addEventListener("click", toggleGame);
+
+  stopGame();
   logLeft.forEach((moveLeft) => movingLogLeft(moveLeft));
   logRight.forEach((moveRight) => movingLogRight(moveRight));
   carLeft.forEach((moveLeft) => movingCarLeft(moveLeft));
   carRight.forEach((moveRight) => movingCarRight(moveRight));
+  stopGame();
 }
 
 function movingLogLeft(move) {
@@ -126,7 +157,7 @@ function movingLogRight(move) {
       break;
   }
 }
-setInterval(autoMoveLog, 1000);
+const timer = setInterval(autoMoveLog, 1000);
 
 function movingCarLeft(moveCar) {
   switch (true) {
@@ -160,3 +191,38 @@ function movingCarRight(moveCar) {
       break;
   }
 }
+
+//Stop the game --
+function stopGame() {
+  if (
+    timeLeft <= 0 ||
+    squares[currentIndex].classList.contains("c1") ||
+    squares[currentIndex].classList.contains("r4") ||
+    squares[currentIndex].classList.contains("r5") ||
+    squares[currentIndex].classList.contains("l4") ||
+    squares[currentIndex].classList.contains("l5")
+  ) {
+    clearInterval(timer);
+    document.removeEventListener("keydown", moveUser);
+    clearInterval(timer);
+    result.innerHTML = "You loose";
+  }
+}
+time.innerHTML = timeLeft;
+//Time passing
+function timePassing() {
+  if (timeLeft > 0) {
+    timeLeft -= 1;
+    console.log(timeLeft);
+    time.innerHTML = timeLeft;
+  }
+}
+
+setInterval(timePassing, 1000);
+
+//Start od Pause Game
+// let start = true;
+
+// function startStop() {
+//   button.addEventListener("click", true);
+// }

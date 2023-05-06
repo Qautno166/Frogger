@@ -12,32 +12,27 @@ const width = 9;
 const hight = 9;
 let timeLeft = 60;
 let currentIndex = 76;
+let timer = null;
+let left = 0;
+let outComeId = null;
 // let currentCarRightIndex = 52;
 // let currentCarLeftIndex = 54;
 
-//STOP START GAME
-let gameRunning = true;
+//STOP START GAME BUTTON
 
-function startGame() {
-  // Code to start the game
-  gameRunning = true;
-}
-function stopGame1() {
-  // Code to stop the game
-  gameRunning = false;
-  console.log("kupa");
-  clearInterval(timer);
-
-  clearInterval(timer);
-}
-
-function toggleGame() {
-  if (gameRunning) {
-    stopGame1();
+button.addEventListener("click", () => {
+  if (timer) {
+    clearInterval(timer);
+    clearInterval(left);
+    timer = null;
+    document.removeEventListener("keydown", moveUser);
   } else {
-    startGame();
+    document.addEventListener("keydown", moveUser);
+    timer = setInterval(autoMoveLog, 1000);
+    left = setInterval(timePassing, 1000);
+    outComeId = setInterval(checkOutcomes, 50);
   }
-}
+});
 
 //Movement of user
 stopGame();
@@ -70,8 +65,6 @@ function moveUser(e) {
       break;
   }
 }
-document.addEventListener("keydown", moveUser);
-
 //Creating Cat
 
 //Moving of car --- Wrog code - there is no option to make more than 1 car per row
@@ -99,8 +92,7 @@ console.log(logLeft);
 //Moving Log Left ( )
 
 function autoMoveLog() {
-  button.addEventListener("click", toggleGame);
-
+  win();
   stopGame();
   logLeft.forEach((moveLeft) => movingLogLeft(moveLeft));
   logRight.forEach((moveRight) => movingLogRight(moveRight));
@@ -157,7 +149,6 @@ function movingLogRight(move) {
       break;
   }
 }
-const timer = setInterval(autoMoveLog, 1000);
 
 function movingCarLeft(moveCar) {
   switch (true) {
@@ -206,9 +197,24 @@ function stopGame() {
     document.removeEventListener("keydown", moveUser);
     clearInterval(timer);
     result.innerHTML = "You loose";
+    clearInterval(left);
+  }
+}
+function win() {
+  if (squares[currentIndex].classList.contains("winer")) {
+    clearInterval(timer);
+    document.removeEventListener("keydown", moveUser);
+    clearInterval(timer);
+    result.innerHTML = "You win";
+    clearInterval(left);
   }
 }
 time.innerHTML = timeLeft;
+//Szybsze sprawdzanie // Anti-cheating
+function checkOutcomes() {
+  stopGame();
+  win();
+}
 //Time passing
 function timePassing() {
   if (timeLeft > 0) {
@@ -217,8 +223,6 @@ function timePassing() {
     time.innerHTML = timeLeft;
   }
 }
-
-setInterval(timePassing, 1000);
 
 //Start od Pause Game
 // let start = true;
